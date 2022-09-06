@@ -3,6 +3,17 @@ import os, sys, io
 import subprocess
 from pathlib import Path
 
+# CFFI fix with pip 
+output = subprocess.Popen(["pip uninstall --yes cffi"], shell=True, stderr=subprocess.STDOUT, 
+    stdout=subprocess.PIPE)
+for line in io.TextIOWrapper(output.stdout, encoding="utf-8"):
+  if(line == ""):
+    break
+  else:
+    print(line.rstrip())
+output = subprocess.Popen(["pip uninstall --yes cryptography"], shell=True, stderr=subprocess.STDOUT, 
+    stdout=subprocess.PIPE)
+
 # Install RAPIDS
 pkg = "rapids"
 if(sys.argv[1] == "nightly"):
